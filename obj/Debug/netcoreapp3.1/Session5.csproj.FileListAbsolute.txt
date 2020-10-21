@@ -200,3 +200,4 @@ C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shar
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\_Imports.razor.g.cs
+C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\AccessDenied.cshtml.g.cs

@@ -1,6 +1,39 @@
-﻿<AuthorizeView>
+﻿@using Session5.Data;
+@using System.Linq;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApplicationDbContext context
+
+@code{
+
+    Usuario usr;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaimsPrincipalData();
+    }
+
+    async Task GetClaimsPrincipalData()
+    {
+        usr = new Usuario();
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            usr = (from c in context.Users
+                   where c.UserName == user.Identity.Name
+                   select c).FirstOrDefault();
+        }
+    }
+}
+
+<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
+        <img src="@usr.Foto" alt="Pic" height="50px" width="50px"/>
+        <a href="Identity/Account/Manage">HOLA, @usr.Nombre!</a>
         <form method="post" action="Identity/Account/LogOut">
             <button type="submit" class="nav-link btn btn-link">Log out</button>
         </form>

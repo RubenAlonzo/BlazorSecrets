@@ -1,16 +1,41 @@
 ﻿@page "/counter"
+@attribute [Authorize]
+@using Session5.Data;
+@using System.Linq;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApplicationDbContext context
 
-<h1>Counter</h1>
+<h3>Usuario Actual</h3>
+<h3>@usr.Nombre</h3>
+<h3>@usr.Apellido</h3>
+<img src="@usr.Foto" alt="Picture" />
 
-<p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
+    Usuario usr;
+    Manager mgr;
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+
+        await GetClaimsPrincipalData();
+
     }
+
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            usr = (from c in context.Users
+                   where c.UserName == user.Identity.Name
+                   select c).FirstOrDefault();
+        }
+    }
+
 }

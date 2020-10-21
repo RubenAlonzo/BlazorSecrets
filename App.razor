@@ -1,7 +1,20 @@
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <h1>Inicie sesion</h1>
+                    <p>No esta autorizado para acceder a este recurso</p>
+                    <p>Favor registrarse o iniciar sesion</p>
+                    <a class="btn btn-success" href="Identity/Account/Login">Iniciar sesion</a>
+                    <a class="btn btn-info" href="Identity/Account/Register">Registrarse</a>
+                </NotAuthorized>
+                <Authorizing>
+                    <h1>Authentication in progress</h1>
+                    <p>Only visible while authentication is in progress.</p>
+                </Authorizing>
+            </AuthorizeRouteView>
+
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
