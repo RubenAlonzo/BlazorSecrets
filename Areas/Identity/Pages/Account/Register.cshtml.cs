@@ -26,6 +26,8 @@ namespace Session5.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
 
         private Api api;
+        [ViewData]
+        public string info { get; set; }
 
         public RegisterModel(
             UserManager<Usuario> userManager,
@@ -50,14 +52,8 @@ namespace Session5.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "Cedula")]
+            [StringLength(11, ErrorMessage ="El numero de cedula debe contener 11 digitos")]
             public string Cedula { get; set; }
-
-            [Display(Name = "Nombre")]
-            public string Nombre { get; set; }
-
-            [Display(Name = "Apellido")]
-            public string Apellido { get; set; }
-
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -73,8 +69,11 @@ namespace Session5.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
         }
 
         
@@ -84,17 +83,18 @@ namespace Session5.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
            
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
 
-            if (ModelState.IsValid)
+            var user = new Usuario();
+            api = new Api();
+            user = api.Consulta(Input.Cedula);
+            user.UserName = Input.Cedula;
+
+            if (ModelState.IsValid && user.Nombre != "No encontrado")
             {
-                var user = new Usuario();
-                api = new Api();
-                user = api.Consulta(Input.Cedula);
-                user.UserName = Input.Cedula;
+                
 
                 var result = await _userManager.CreateAsync(user, Input.Contrasena);
-                if (result.Succeeded)
+                if (result.Succeeded )
                 {
                     _logger.LogInformation("User created a new account with password.");
 
@@ -121,6 +121,11 @@ namespace Session5.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+            }
+            else
+            {
+                info = "Cedula no valida";
+                return Page();
             }
 
             // If we got this far, something failed, redisplay form
