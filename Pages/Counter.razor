@@ -6,24 +6,81 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ApplicationDbContext context
+@using System.ComponentModel.DataAnnotations
 
-<h3>Usuario Actual</h3>
-<h3>@usr.Nombre</h3>
-<h3>@usr.Apellido</h3>
-<img src="@usr.Foto" alt="Picture" />
+<h2>Nuevo secreto</h2>
+<br />
+<EditForm Model="secreto" OnValidSubmit="Enviar">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Titulo de tu secreto</label>
+                <InputText class="form-control" placeholder="Titulo" @bind-Value="secreto.Titulo"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Descripcion del secreto</label>
+                <InputTextArea class="form-control" placeholder="Descripcion" @bind-Value="secreto.Descripcion"></InputTextArea>
+            </div>
+            <div class="form-group">
+                <label>Valor monetario</label>
+                <InputNumber class="form-control" placeholder="Valor" @bind-Value="secreto.ValorMonetario"></InputNumber>
+            </div>
+            <div class="form-group">
+                <label>Fecha aproximada</label>
+                <InputDate class="form-control" @bind-Value="secreto.Fecha"></InputDate>
+            </div>
+        </div>
 
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Lugar donde sucedio</label>
+                <InputText class="form-control" placeholder="Lugar" @bind-Value="secreto.Lugar"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Latitud</label>
+                <InputNumber class="form-control" placeholder="Latitud" @bind-Value="secreto.Latitud"></InputNumber>
+                <label>Longitud</label>
+                <InputNumber class="form-control" placeholder="Longitud" @bind-Value="secreto.Longitud"></InputNumber>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>
 
+        </div>
+    </div>
+</EditForm>
 
 @code {
     Usuario usr;
+    Secreto secreto = new Secreto();
     Manager mgr;
+
+    void Enviar()
+    {
+        try
+        {
+            secreto.User = usr;
+            context.Add(secreto);
+            context.SaveChanges();
+            secreto = new Secreto();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
+
     protected override async Task OnInitializedAsync()
     {
 
         await GetClaimsPrincipalData();
 
     }
-
 
     private async Task GetClaimsPrincipalData()
     {

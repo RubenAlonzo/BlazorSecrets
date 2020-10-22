@@ -1,7 +1,124 @@
 ﻿@page "/"
+@using Session5.Data;
+@using System.Linq;
 @attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApplicationDbContext context
 
-<h1>Hello, world!</h1>
-Welcome to your new app.
+<h2>@msjInicial</h2>
+<br />
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>No.</th>
+            <th>Titulo</th>
+            <th style="width:30%">Descripcion</th>
+            <th>Lugar</th>
+            <th>Fecha</th>
+            <th style="width:12%">Coste</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Secreto item in lst)
+        {
+            count++;
+            <tr>
+                <th>@count</th>
+                <td>@item.Titulo</td>
+                <td>@item.Descripcion</td>
+                <td>@item.Lugar</td>
+                <td>@item.Fecha.ToString("dd/MM/yyy")</td>
+                <td>@item.ValorMonetario.ToString("C")</td>
+                <td>@item.Latitud</td>
+                <td>@item.Longitud</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
+
+@code {
+    Usuario usr;
+    Secreto secreto = new Secreto();
+    Manager mgr;
+    List<Secreto> lst = new List<Secreto>();
+    int count = 0;
+    string nombre, msjInicial;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await GetClaimsPrincipalData();
+    }
+
+    private string UppercaseWords(string value)
+    {
+        char[] array = value.ToCharArray();
+        // Handle the first letter in the string.
+        if (array.Length >= 1)
+        {
+            if (char.IsLower(array[0]))
+            {
+                array[0] = char.ToUpper(array[0]);
+            }
+        }
+        // Scan through the letters, checking for spaces.
+        // ... Uppercase the lowercase letters following spaces.
+        for (int i = 1; i < array.Length; i++)
+        {
+            if (array[i - 1] == ' ')
+            {
+                if (char.IsLower(array[i]))
+                {
+                    array[i] = char.ToUpper(array[i]);
+                }
+            }
+        }
+        return new string(array);
+    }
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+
+
+            usr = (from c in context.Users
+                   where c.UserName == user.Identity.Name
+                   select c).FirstOrDefault();
+
+            nombre = UppercaseWords(@usr.Nombre.ToLower());
+
+            var lstSec = (from c in context.Users
+                          where c.UserName == user.Identity.Name
+                          select c.Secretos).ToList();
+
+            foreach (var item in lstSec)
+            {
+                foreach (var i in item)
+                {
+                    lst.Add(i);
+                }
+            }
+
+            if (lst.Count > 0)
+            {
+                msjInicial = $"Estos son tus secretos {nombre}!";
+            }
+            else
+            {
+                msjInicial = $"Aun no tienes secretos {nombre}.";
+            }
+
+        }
+    }
+
+}

@@ -162,14 +162,13 @@ namespace Session5.Migrations
                 {
                     SecretoId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Titulo = table.Column<string>(nullable: true),
-                    Descripcion = table.Column<string>(nullable: true),
-                    Lugar = table.Column<string>(nullable: true),
+                    Titulo = table.Column<string>(maxLength: 50, nullable: false),
+                    Descripcion = table.Column<string>(nullable: false),
+                    Lugar = table.Column<string>(nullable: false),
                     Fecha = table.Column<DateTime>(nullable: false),
                     ValorMonetario = table.Column<decimal>(nullable: false),
                     Latitud = table.Column<double>(nullable: false),
                     Longitud = table.Column<double>(nullable: false),
-                    UsuarioId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

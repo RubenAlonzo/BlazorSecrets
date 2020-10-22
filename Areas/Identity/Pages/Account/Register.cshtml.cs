@@ -62,12 +62,12 @@ namespace Session5.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+            [Display(Name = "Contraseña")]
+            public string Contrasena { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmar contraseña")]
+            [Compare("Contrasena", ErrorMessage = "Las contraseñas no coinciden.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -82,7 +82,10 @@ namespace Session5.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+           
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            
+
             if (ModelState.IsValid)
             {
                 var user = new Usuario();
@@ -90,9 +93,7 @@ namespace Session5.Areas.Identity.Pages.Account
                 user = api.Consulta(Input.Cedula);
                 user.UserName = Input.Cedula;
 
-
-
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await _userManager.CreateAsync(user, Input.Contrasena);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -105,9 +106,7 @@ namespace Session5.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+                   
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                        // return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });

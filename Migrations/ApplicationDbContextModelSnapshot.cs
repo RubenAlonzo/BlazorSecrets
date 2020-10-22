@@ -151,6 +151,7 @@ namespace Session5.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Fecha")
@@ -163,16 +164,16 @@ namespace Session5.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Lugar")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Titulo")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("ValorMonetario")
                         .HasColumnType("TEXT");

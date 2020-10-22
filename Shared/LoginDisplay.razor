@@ -8,10 +8,38 @@
 @code{
 
     Usuario usr;
+    string nombre;
 
     protected override async Task OnInitializedAsync()
     {
         await GetClaimsPrincipalData();
+        
+    }
+
+    private string UppercaseWords(string value)
+    {
+        char[] array = value.ToCharArray();
+        // Handle the first letter in the string.
+        if (array.Length >= 1)
+        {
+            if (char.IsLower(array[0]))
+            {
+                array[0] = char.ToUpper(array[0]);
+            }
+        }
+        // Scan through the letters, checking for spaces.
+        // ... Uppercase the lowercase letters following spaces.
+        for (int i = 1; i < array.Length; i++)
+        {
+            if (array[i - 1] == ' ')
+            {
+                if (char.IsLower(array[i]))
+                {
+                    array[i] = char.ToUpper(array[i]);
+                }
+            }
+        }
+        return new string(array);
     }
 
     async Task GetClaimsPrincipalData()
@@ -23,23 +51,25 @@
 
         if (user.Identity.IsAuthenticated)
         {
+           
             usr = (from c in context.Users
                    where c.UserName == user.Identity.Name
                    select c).FirstOrDefault();
+            nombre = UppercaseWords(@usr.Nombre.ToLower());
         }
     }
 }
 
 <AuthorizeView>
     <Authorized>
-        <img src="@usr.Foto" alt="Pic" height="50px" width="50px"/>
-        <a href="Identity/Account/Manage">HOLA, @usr.Nombre!</a>
+        <img src="@usr.Foto" alt="Pic" height="50px" width="50px" />
+        <a href="Identity/Account/Manage">Bienvenido, @nombre!</a>
         <form method="post" action="Identity/Account/LogOut">
-            <button type="submit" class="nav-link btn btn-link">Log out</button>
+            <button type="submit" class="nav-link btn btn-link">Cerrar sesion</button>
         </form>
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">Register</a>
-        <a href="Identity/Account/Login">Log in</a>
+        <a href="Identity/Account/Register">Registrarse</a>
+        <a href="Identity/Account/Login">Iniciar sesion</a>
     </NotAuthorized>
 </AuthorizeView>

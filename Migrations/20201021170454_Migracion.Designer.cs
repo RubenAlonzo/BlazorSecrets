@@ -9,7 +9,7 @@ using Session5.Data;
 namespace Session5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201019215109_Migracion")]
+    [Migration("20201021170454_Migracion")]
     partial class Migracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,6 +153,7 @@ namespace Session5.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Fecha")
@@ -165,16 +166,16 @@ namespace Session5.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Lugar")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Titulo")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("ValorMonetario")
                         .HasColumnType("TEXT");
