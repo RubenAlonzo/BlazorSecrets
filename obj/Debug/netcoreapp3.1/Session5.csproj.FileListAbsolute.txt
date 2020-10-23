@@ -19,9 +19,7 @@ C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\staticweba
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\staticwebassets\Session5.StaticWebAssets.xml
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Session5.RazorComponent.input.cache
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\App.razor.g.cs
-C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Counter.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Error.razor.g.cs
-C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
@@ -192,12 +190,12 @@ C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Session5.M
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Session5.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Session5.dll
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\App.razor.g.cs
-C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Pages\Counter.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Pages\Error.razor.g.cs
-C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Pages\FetchData.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shared\LoginDisplay.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\_Imports.razor.g.cs
 C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\AccessDenied.cshtml.g.cs
+C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Crear.razor.g.cs
+C:\Users\Ruben\source\repos\Session5\Session5\obj\Debug\netcoreapp3.1\Razor\Pages\Crear.razor.g.cs

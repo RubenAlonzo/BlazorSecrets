@@ -50,7 +50,6 @@ namespace Session5
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Usuario>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddHttpContextAccessor();
         }
 
